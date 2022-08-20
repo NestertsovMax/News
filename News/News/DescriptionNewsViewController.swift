@@ -13,7 +13,7 @@ class DescriptionNewsViewController: UIViewController {
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         label.font = .systemFont(ofSize: 22, weight: .semibold)
         return label
     }()
@@ -30,7 +30,7 @@ class DescriptionNewsViewController: UIViewController {
     
     private let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         label.font = .systemFont(ofSize: 17, weight: .light)
         return label
     }()
@@ -77,16 +77,12 @@ class DescriptionNewsViewController: UIViewController {
         subTitleLabel.text = article?.description
         
         guard let article = article,
-        let urlToImage = article.urlToImage,
-        let url = URL(string: urlToImage)
-        else {
-            return
-        }
+              let urlToImage = article.urlToImage,
+              let url = URL(string: urlToImage)
+        else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
+            guard let data = data, error == nil else { return }
             DispatchQueue.main.async {
                 self.newsImageView.image = UIImage(data: data)
             }
